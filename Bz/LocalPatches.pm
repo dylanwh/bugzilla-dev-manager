@@ -12,43 +12,6 @@ my %filter_defaults = (
 
 use constant PATCHES => (
     {
-        desc    => '__DIE__ handler (old upstream)',
-        file    => 'Bugzilla.pm',
-        filter  => {
-            repo        => 'bugzilla',
-            branch_max  => '4.2',
-        },
-        apply   => {
-            match   => sub { /^# ?\$::SIG{__DIE__} = i_am_cgi/ },
-            action  => sub { s/^#\s*// },
-        },
-        revert  => {
-            match   => sub { /^\$::SIG{__DIE__} = i_am_cgi/ },
-            action  => sub { s/^/# / },
-        },
-    },
-    {
-        desc    => '__DIE__ handler',
-        file    => 'Bugzilla.pm',
-        filter  => [
-            {
-                repo        => 'bugzilla',
-                branch_min  => '4.4',
-            },
-            {
-                repo        => 'bmo',
-            },
-        ],
-        apply   => {
-            match   => sub { /^# ?\$::SIG{__DIE__} = i_am_cgi/ },
-            action  => sub { s/^#\s*// },
-        },
-        revert  => {
-            match   => sub { /^\$::SIG{__DIE__} = i_am_cgi/ },
-            action  => sub { s/^/#/ },
-        },
-    },
-    {
         desc    => 't/012 warnings to errors',
         file    => 't/012throwables.t',
         apply   => {
