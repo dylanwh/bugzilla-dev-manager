@@ -156,7 +156,7 @@ sub execute {
         return unless confirm("push?");
     }
 
-    $repo->git('push');
+    #$repo->git('push');
 }
 
 1;

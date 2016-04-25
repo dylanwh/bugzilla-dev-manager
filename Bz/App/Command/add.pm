@@ -19,7 +19,7 @@ sub execute {
     my @modified = $current->modified_files();
     my @deleted = $current->deleted_files();
 
-    @new = grep { !/\.(patch|orig)$/ } @new;
+    @new = grep { !/\.(patch|orig)$/ && !/\.htaccess$/ } @new;
 
     unless (@new || @modified) {
         alert("no new, modified, or deleted files");
