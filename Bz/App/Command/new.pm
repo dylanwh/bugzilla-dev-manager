@@ -96,7 +96,13 @@ sub execute {
     Bz::Repo->new({ dir => $workdir->repo })->update();
 
     $workdir->create_dir();
-    $workdir->run_checksetup('-t');
+    my @cpanm;
+    if ($bug) {
+        my $has_cpanm_switch = $bug->product eq 'bugzilla.mozilla.org' && $bug->version eq 'Merge'
+            || $bug->product eq 'Bugzilla' && $bug->version eq '5.1';
+        @cpanm = ('--cpanm');
+    }
+    $workdir->run_checksetup('-t', @cpanm);
     $workdir->update_localconfig();
     $workdir->run_checksetup();
     $workdir->fix();
