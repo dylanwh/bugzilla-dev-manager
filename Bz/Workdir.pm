@@ -211,7 +211,6 @@ sub update_localconfig {
     my $config = Bz->config;
 
     $config->localconfig->{db_name} = $self->db;
-    $config->localconfig->{db_driver} = 'mysql';
 
     my @file = read_file($self->path . '/localconfig');
     foreach my $line (@file) {
