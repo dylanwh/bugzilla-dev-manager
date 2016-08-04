@@ -23,7 +23,7 @@ use overload (
 
 sub _build_is_bmo {
     my ($self) = @_;
-    return $self->url =~ m#webtools/bmo/bugzilla\.git$#;
+    return $self->url =~ m#mozilla-bteam/bmo\.git$#;
 }
 
 sub _build_is_upstream {
