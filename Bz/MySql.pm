@@ -43,6 +43,7 @@ sub database_exists {
         $class->dbh($database);
         $result = 1;
     };
+    warn "$@";
     return $result;
 }
 

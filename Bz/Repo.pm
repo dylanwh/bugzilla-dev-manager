@@ -165,6 +165,7 @@ sub fix_permissions {
     chdir($self->path);
     foreach my $file (`find . -type f -perm /111`) {
         chomp $file;
+        next;
         next if $file =~ /\.(cgi|pl|sh|swp)$/;
         next if $file =~ /^\.\/contrib\//;
         message("fixing permissions for $file");

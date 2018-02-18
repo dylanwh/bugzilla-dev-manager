@@ -24,6 +24,7 @@ our @EXPORT = qw(
     warn_coloured
 
     sudo_on_output
+    sudo_on_failure
 
     vers_cmp
 );
@@ -187,6 +188,15 @@ sub sudo_on_output {
     if ($output) {
         message("escalating $command");
         system "sudo $command";
+    }
+}
+
+sub sudo_on_failure {
+    my (@command) = @_;
+    my $rv = system(@command);
+    if ($rv != 0) {
+        message("escalating @command");
+        system("sudo", @command);
     }
 }
 

@@ -127,8 +127,14 @@ sub execute {
         if ($opt->last) {
             $num = $options[$#options];
             print coloured($prompt, 'yellow') . "$num\n";
-        } else {
+        } elsif (@options < 10) {
             $num = prompt($prompt, join('', @options));
+        }
+        else {
+            print "$prompt? ";
+            Bz::Util::ReadMode(0);
+            $num = readline STDIN;
+            chomp $num;
         }
         exit unless $num;
         my $attach_id = $patches[$num - 1]->{id};

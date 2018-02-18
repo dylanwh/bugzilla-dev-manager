@@ -418,10 +418,10 @@ sub fix_permissions {
     push @spec, '.git' if -d '.git';
 
     my $user = getpwuid($>);
-    system("chgrp -R --silent " . Bz->config->localconfig->webservergroup . " @spec");
+    system(qw(chgrp -R --silent), Bz->config->localconfig->webservergroup, @spec) if @spec;
     @spec = grep { $_ ne 'data' } @spec;
-    sudo_on_output("chown -R $user @spec");
-    sudo_on_output('find . -path ./data -prune -type d -exec chmod g+x {} \;');
+    sudo_on_failure(qw(chown -R), $user, @spec) if @spec;
+    sudo_on_failure(qw(find . -path ./data -prune -type d -exec chmod g+x {} ;));
     chdir($cwd);
 }
 

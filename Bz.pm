@@ -119,9 +119,6 @@ sub _current_path {
         $path = File::Spec->catdir(@dirs);
         die "invalid working directory\n" if $path eq '/';
     }
-    my $remote = `git config --get remote.origin.url`;
-    die "invalid working directory\n"
-        unless $remote =~ m#^ssh://gitolite3\@git\.mozilla\.org/(bugzilla|webtools/bmo)/#;
     return $path;
 }
 
